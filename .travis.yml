@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '9'
+cache:
+  directories:
+    - node_modules
+services: postgresql
+before_install:
+  - psql -c "CREATE DATABASE codesling;" -U postgres
+  - psql -c "CREATE USER root WITH SUPERUSER PASSWORD '';" -U postgres
+install:
+  - yarn
+  - yarn buildEnv
+  - yarn setup:rest-server
+  - yarn setup:socket-server
+  - yarn setup:services/coderunner-service
+  - yarn db:setup:rest-server
+script:
+  - yarn start &
+  - sleep 10
+  - yarn test
