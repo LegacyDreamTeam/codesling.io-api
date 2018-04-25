@@ -7,7 +7,7 @@ const router = express.Router();
 router.route('/addHistory')
   .post(historyController)
 
-router.route('/:user_id')
+router.route('/fetchAllHistory/:user_id')
   .get(historyController)
 
 export default router;

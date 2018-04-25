@@ -9,9 +9,13 @@ export const addUserChallengeHelper = `
 
 export const fetchAllUserChallengesHelper = `
   SELECT
-    uc.id, uc.challenge_id, uc.user_id, uc.type
+    uc.id, uc.challenge_id, uc.user_id, uc.type, ch.title, ch.content, ch.difficulty, ch.rating
   FROM
     usersChallenges AS uc
+  INNER JOIN
+    challenges AS ch
+  ON
+    (uc.challenge_id=ch.id)
   WHERE
     uc.user_id=$1
 `;
