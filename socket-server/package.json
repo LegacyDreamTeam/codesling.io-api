@@ -4,6 +4,7 @@
   "scripts": {
     "start": "nodemon bin/entry.js",
     "test": "jest",
+    "test-travis": "jest --updateSnapshot",
     "lint": "eslint src"
   },
   "devDependencies": {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd socket-server && yarn test",
+    "test-travis": "cd socket-server && yarn test-travis",
     "start:rest-server": "cd rest-server && yarn start",
     "start:socket-server": "cd socket-server && yarn start",
     "start:services/coderunner-service": "cd services/coderunner-service && yarn start",
@@ -13,7 +14,8 @@
     "setup:socket-server": "cd socket-server && yarn",
     "setup:services/coderunner-service": "cd services/coderunner-service && yarn",
     "db:setup:rest-server": "cd rest-server && babel-node src/config/database/setup.js",
-    "buildEnv": "node bin/buildEnv.js"
+    "buildEnv": "node bin/buildEnv.js",
+    "clean": "rm -rf node_modules && rm -rf rest-server/node_modules && rm -rf socket-server/node_modules && rm -rf services/coderunner-service/node_modules"
   },
   "repository": {
     "type": "git",
