@@ -51,18 +51,18 @@ const clientDisconnect = ({ io, room }) => {
 
 const clientRun = async ({ io, room }, payload) => {
   success('running code from client. room.get("text") = ', room.get('text'));
-  const { text, player } = payload;
+  const { text, player, challenge } = payload;
   const url = process.env.CODERUNNER_SERVICE_URL;
 
   try {
     const { data } = await axios.post(`${url}/submit-code`, { code: text });
-    console.log('data from clientEvents', data);
-    console.log('player from clientEvents', player);
-    console.log('text from clientEvents', text);
-    const stdout = data; // result run by coderunner from user
-    // if result from user === output from db then player will win
-    
-    serverRun({ io, room }, { stdout, player });
+    const challOutput = JSON.parse(challenge);
+    const stdout = data; 
+    let winner = false;
+    if (typeof challOutput.output === typeof stdout.result && challOutput.output === stdout.result) {
+      winner = true;
+    }
+    serverRun({ io, room }, { stdout, player, winner });
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
   }
