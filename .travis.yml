@@ -27,6 +27,7 @@ deploy:
   skip_cleanup: true
   on: &2
     repo: LegacyDreamTeam/codesling.io-api
+    branch: travis
   bucket: legacy-s3
   region: us-west-1
 - provider: codedeploy
@@ -40,6 +41,6 @@ deploy:
   region: us-west-1
   on: *2
 script:
-  - zip -r latest *
+  - zip -qr latest *
   - mkdir -p upload_dir
   - mv latest.zip upload_dir/latest.zip
