@@ -14,6 +14,10 @@ export const challengeTracker = async () => {
   }
 }
 
+export const addChallenge = (id) => {
+  idStore[id] = '';
+}
+
 export const findRoom = async (req, res) => {
   try {
       if (idStore[req.query.challengeId] === '') {

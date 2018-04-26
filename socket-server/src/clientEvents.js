@@ -59,6 +59,7 @@ const clientRun = async ({ io, room }, payload) => {
     const challOutput = JSON.parse(challenge);
     const stdout = data; 
     let winner = false;
+    
     if (typeof challOutput.output === typeof stdout.result && challOutput.output === stdout.result) {
       winner = true;
     }
