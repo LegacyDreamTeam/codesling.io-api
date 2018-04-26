@@ -19,3 +19,27 @@ script:
   - yarn start &
   - sleep 10
   - yarn test
+deploy:
+- provider: s3
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  local_dir: upload_dir
+  skip_cleanup: true
+  on: &2
+    repo: LegacyDreamTeam/codesling.io-api
+  bucket: legacy-s3
+  region: us-west-1
+- provider: codedeploy
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: legacy-s3
+  key: latest.zip
+  bundle_type: zip
+  application: legacy
+  deployment_group: legacy-group
+  region: us-west-1
+  on: *2
+script:
+  - zip -r latest *
+  - mkdir -p upload_dir
+  - mv latest.zip upload_dir/latest.zip
