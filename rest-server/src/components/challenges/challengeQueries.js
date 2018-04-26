@@ -1,8 +1,10 @@
 import { globalQueryHelper } from '../../lib/components/';
 import {
   addChallengeHelper,
-  fetchChallengeHelper
+  fetchChallengeHelper,
+  fillChallengeTracker 
 } from './challengeSQLHelpers';
+
 
 export const challengeQuery = async (payload, url) => {
   if (url === '/addChallenge') {
@@ -11,6 +13,9 @@ export const challengeQuery = async (payload, url) => {
     return await globalQueryHelper(payload, fetchChallengeHelper, 'fetchChallengeHelper');
   }
 };
+
+
+
 
 // try {
 //   const query = {

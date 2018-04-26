@@ -30,14 +30,18 @@ const clientOneUpdate = ({ io, client, room }, payload) => {
   const { text, player } = payload;
   success('client update heard. payload.text = ', payload);
   room.set('playerOne.text', text);
-  clientOneServerChanged({ io, client, room, player });
+  clientOneServerChanged({
+    io, client, room, player,
+  });
 };
 
 const clientTwoUpdate = ({ io, client, room }, payload) => {
   const { text, player } = payload;
   success('client update heard. payload.text = ', payload);
   room.set('playerTwo.text', text);
-  clientTwoServerChanged({ io, client, room, player });
+  clientTwoServerChanged({
+    io, client, room, player,
+  });
 };
 
 const clientDisconnect = ({ io, room }) => {
@@ -52,7 +56,12 @@ const clientRun = async ({ io, room }, payload) => {
 
   try {
     const { data } = await axios.post(`${url}/submit-code`, { code: text });
-    const stdout = data;
+    console.log('data from clientEvents', data);
+    console.log('player from clientEvents', player);
+    console.log('text from clientEvents', text);
+    const stdout = data; // result run by coderunner from user
+    // if result from user === output from db then player will win
+    
     serverRun({ io, room }, { stdout, player });
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
