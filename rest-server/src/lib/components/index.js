@@ -36,6 +36,7 @@ export const globalQueryHelper = async (payload, queryString, name, columns=[]) 
 };
 
 export const globalController = (query, name) => {
+  console.log('From global controller', query)
   /**
    * @param {Function} query - the query built with the globalQueryHelper, evaluates the url to use the appropriate SQL statement to query the database
    * @param {String} name - used as an identifier for development, identifies which controller is being executed

@@ -57,12 +57,22 @@ const clientRun = async ({ io, room }, payload) => {
   try {
     const { data } = await axios.post(`${url}/submit-code`, { code: text });
     const challOutput = JSON.parse(challenge);
-    const stdout = data; 
+
+    const stdout = data;
+    const gettingRidOfSPacesFromTestOutput = challOutput.output.replace(/\s/g, '');
+    const gettingRidOfSingleQuotes = gettingRidOfSPacesFromTestOutput.replace(/\'/g, "");
+    const gettingRidOfSPacesFromUsers = stdout.result.replace(/\s/g, '');
+    const gettingRidOfSingleQuotesUserResult = gettingRidOfSPacesFromUsers.replace(/\'/g, "");
+
+    // STRINGIFY TESTCASE OUTPUT READY TO COMPARE USERS RESULT
+    const comparableTestOutput = JSON.stringify(gettingRidOfSingleQuotes);
+    const comparableUsersOutput = JSON.stringify(gettingRidOfSingleQuotesUserResult);
     let winner = false;
-    
-    if (typeof challOutput.output === typeof stdout.result && challOutput.output === stdout.result) {
+
+    if (comparableTestOutput === comparableUsersOutput) {
       winner = true;
     }
+
     serverRun({ io, room }, { stdout, player, winner });
   } catch (e) {
     success('error posting to coderunner service from socket server. e = ', e);
@@ -73,8 +83,8 @@ const clientMessage = async ({ io, room }, payload) => {
   success('client message heard');
   const url = process.env.REST_SERVER_URL;
   try {
-    const { data } = await axios.post(`${url}/messages/`, payload);
-    serverMessage({ io, room }, data);
+    // const { data } = await axios.post(`${url}/messages/`, payload);
+    serverMessage({ io, room }, payload);
   } catch (e) {
     success('error saving message to the database. e = ', e);
   }

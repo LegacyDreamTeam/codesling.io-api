@@ -24,6 +24,7 @@ export const verifyUserWithJWT = (req, res, next) => {
   try {
     verify(req.headers.authorization.slice(7), process.env.TOKEN_SECRET);
     success('token verified');
+    next(); 
   } catch (e) {
     error('token not verified');
     next(e);
