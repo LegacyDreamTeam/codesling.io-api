@@ -64,7 +64,6 @@ const clientRun = async ({ io, room }, payload) => {
     const gettingRidOfSPacesFromUsers = stdout.result.replace(/\s/g, '');
     const gettingRidOfSingleQuotesUserResult = gettingRidOfSPacesFromUsers.replace(/\'/g, "");
 
-    // STRINGIFY TESTCASE OUTPUT READY TO COMPARE USERS RESULT
     const comparableTestOutput = JSON.stringify(gettingRidOfSingleQuotes);
     const comparableUsersOutput = JSON.stringify(gettingRidOfSingleQuotesUserResult);
     let winner = false;
