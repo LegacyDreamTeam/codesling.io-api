@@ -9,7 +9,7 @@ export const addChallengeHelper = `
 
 export const fetchChallengeHelper = `
   SELECT
-    c.id, c.title, c.content, c.difficulty, c.rating, tc.content, tc.challenge_id
+    c.id, c.title, c.content, c.difficulty, c.rating, tc.content AS test, tc.challenge_id, tc.output
   FROM
     challenges AS c
   FULL OUTER JOIN
@@ -17,3 +17,4 @@ export const fetchChallengeHelper = `
   ON
     (c.id=tc.challenge_id)
 `;
+

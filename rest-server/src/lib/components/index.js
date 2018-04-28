@@ -26,7 +26,7 @@ export const globalQueryHelper = async (payload, queryString, name, columns=[]) 
       text: queryString,
       values: queryPayloadOrganizer(payload, columns),
     };
-    const data = db.query(query);
+    const data = await db.query(query);
     success(`${name} - successfully retrived data ${JSON.stringify(data)}`);
     return data;
   } catch (err) {
@@ -36,6 +36,7 @@ export const globalQueryHelper = async (payload, queryString, name, columns=[]) 
 };
 
 export const globalController = (query, name) => {
+  console.log('From global controller', query)
   /**
    * @param {Function} query - the query built with the globalQueryHelper, evaluates the url to use the appropriate SQL statement to query the database
    * @param {String} name - used as an identifier for development, identifies which controller is being executed

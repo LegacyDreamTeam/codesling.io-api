@@ -4,6 +4,11 @@ import { Pool } from 'pg';
 import Promise from 'bluebird';
 
 import { 
+  challengeTracker, 
+} from '../../components/challenges/challengeTracker';
+
+
+import { 
   success,
   error,
 } from '../../lib/log';
@@ -38,4 +43,7 @@ db.on('error', (err) => {
 
 db.connect();
 
+
 export default db;
+
+challengeTracker(); 

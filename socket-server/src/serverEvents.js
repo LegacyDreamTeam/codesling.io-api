@@ -44,10 +44,10 @@ export const serverLeave = ({ io, room }) => {
     .emit('server.leave');
 };
 
-export const serverRun = ({ io, room }, { stdout, player }) => {
+export const serverRun = ({ io, room }, { stdout, player, winner }) => {
   io
     .in(room.get('id'))
-    .emit('server.run', { stdout, player });
+    .emit('server.run', { stdout, player, winner });
 };
 
 export const serverMessage = ({ io, room }, message) => {

@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.post('/submit-code', (req, res) => {
   const { code } = req.body;
   s.run(code, (output) => {
-    res.status(200).send(output);
+    res.status(200).send(output); 
   });
 });
 

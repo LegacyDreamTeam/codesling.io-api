@@ -1,8 +1,12 @@
 import express from 'express';
 
 import {
-  challengeController
+  challengeController,
 } from './challengeControllers';
+
+import { 
+  findRoom,
+} from '../challenges/challengeTracker'; 
 
 const router = express.Router();
 
@@ -11,5 +15,8 @@ router.route('/')
 
 router.route('/addChallenge')
   .post(challengeController);
+
+router.route('/challengeTracker')
+  .get(findRoom); 
 
 export default router;

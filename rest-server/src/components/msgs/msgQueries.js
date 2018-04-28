@@ -15,6 +15,7 @@ export const msgQuery = async (payload, url) => {
 };
 
 export const fetchMessageQuery = async (payload) => {
+  console.log('PAYLOAD', payload)
   try {
     const queryString = fetchAllMessagesForUserHelper(payload);
     const data = await db.query(queryString);
