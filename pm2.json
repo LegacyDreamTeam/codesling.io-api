@@ -1,0 +1,8 @@
+{
+  "apps" : [{
+    "name": "Rest server",
+    "script": "yarn",
+    "args": "start:rest-server",
+    "cwd": "/home/ec2-user/legacy"
+  }]
+}
