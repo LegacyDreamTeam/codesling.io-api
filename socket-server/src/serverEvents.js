@@ -19,7 +19,19 @@ export const serverInitialState = ({ client, room }, { challenge }) => {
       playerTwoText: room.get('playerTwo.text'),
       challenge: room.get('challenge'),
     });
+    const roomId = room.get('id');
+    io
+    .in(roomId)
+    .emit('server.startGame', { start: true });
   }
+
+};
+
+export const sendPlayers = ({ io, room, userId }) => {
+  const roomId = room.get('id');
+  io
+    .in(roomId)
+    .emit('server.PlayerIds', { userId });
 };
 
 export const clientOneServerChanged = ({ io, room }) => {

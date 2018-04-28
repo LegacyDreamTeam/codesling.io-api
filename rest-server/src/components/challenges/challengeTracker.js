@@ -1,7 +1,10 @@
 import db from '../../config/database';
 import bodyParser from 'body-parser'; 
 
-const idStore = {}; 
+export const idStore = {};
+// this will need to be improved to remove the room id if a client leaves before a game starts
+// right now it will leave their id in there and when someone else joins they would join an empty
+// room with no way for anyone to join them
 
 export const challengeTracker = async () => {
   try {
@@ -11,6 +14,14 @@ export const challengeTracker = async () => {
     });
   } catch (err) {
     console.log('error ', err);
+  }
+}
+
+export const leavePage = (roomId, chId) => {
+  if (roomId && chId) {
+    if(idStore[chId] === roomId) {
+      idStore[chId] = '';
+    }
   }
 }
 
