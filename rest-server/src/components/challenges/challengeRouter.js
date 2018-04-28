@@ -16,6 +16,9 @@ router.route('/')
 router.route('/addChallenge')
   .post(challengeController);
 
+router.route('/leavingPage')
+  .post(challengeController);
+
 router.route('/challengeTracker')
   .get(findRoom); 
 

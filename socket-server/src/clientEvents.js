@@ -8,6 +8,7 @@ import {
   serverLeave,
   serverRun,
   serverMessage,
+  sendPlayers,
 } from './serverEvents';
 
 /**
@@ -25,6 +26,12 @@ const clientReady = ({ io, client, room }, payload) => {
   success('client ready heard');
   serverInitialState({ io, client, room }, payload);
 };
+
+const clientGetUser = ({ io, client, room }, payload) => {
+  const { userId } = payload;
+  success('client user heard. user ID', userId);
+  sendPlayers({ io, room, userId });
+}
 
 const clientOneUpdate = ({ io, client, room }, payload) => {
   const { text, player } = payload;
@@ -96,6 +103,7 @@ const clientEmitters = {
   'client.disconnect': clientDisconnect,
   'client.run': clientRun,
   'client.message': clientMessage,
+  'client.getUser': clientGetUser,
 };
 
 export default clientEmitters;
