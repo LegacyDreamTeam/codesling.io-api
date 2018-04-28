@@ -16,5 +16,7 @@ export const fetchChallengeHelper = `
     testCases AS tc
   ON
     (c.id=tc.challenge_id)
+  ORDER BY
+    c.id
 `;
 
