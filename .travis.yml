@@ -1,9 +1,10 @@
 language: node_js
-node_js:
-- '9'
 cache:
   directories:
     - node_modules
+    - rest-server/node_modules
+    - socket-server/node_modules
+    - services/coderunner-service/node_modules
 services: postgresql
 before_install:
   - psql -c "CREATE DATABASE codesling;" -U postgres
@@ -19,13 +20,17 @@ script:
   - yarn start &
   - sleep 10
   - yarn test
+  - find . -type d -name "*node_modules*" -prune -o -type f -print | zip latest-api.zip -@
+  - mkdir -p upload_dir
+  - mv latest-api.zip upload_dir/latest-api.zip
+
 deploy:
 - provider: s3
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
   local_dir: upload_dir
   skip_cleanup: true
-  on: &2
+  on: &1
     repo: LegacyDreamTeam/codesling.io-api
     branch: travis
   bucket: legacy-s3
@@ -34,13 +39,9 @@ deploy:
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
   bucket: legacy-s3
-  key: latest.zip
+  key: latest-api.zip
   bundle_type: zip
   application: legacy
   deployment_group: legacy-group
   region: us-west-1
-  on: *2
-script:
-  - zip -qr latest *
-  - mkdir -p upload_dir
-  - mv latest.zip upload_dir/latest.zip
+  on: *1
